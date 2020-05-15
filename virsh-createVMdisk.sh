@@ -20,11 +20,8 @@ read answer
 if [ "$answer" != "${answer#[Yy]}" ] ;then
 
 read -p "Which VM are you building a disk for? " vmname
-
 read -p "Give the disk a unique name: " diskname
-
 read -p "what size does the disk need to be in mb? (eg 8192 for an 8gb disk): " disksize
-
 read -p "how should the disk be designated in /dev/? Only answer as you would expect to see in the directory /dev/* IE sda or vdb: " targetdev
 
 ##Build and attach the disks
