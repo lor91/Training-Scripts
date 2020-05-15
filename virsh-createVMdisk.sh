@@ -32,7 +32,7 @@ touch $HOME/VMDisks/$diskname.xml
 
 echo "<disk type='file' device='disk'> 
    <driver name='qemu' type='raw' cache='none'/> 
-   <source file='/home/mike/VMDisks/$diskname.img'/> 
+   <source file='$HOME/VMDisks/$diskname.img'/> 
    <target dev='$targetdev'/> 
 </disk>" >>  $HOME/VMDisks/$diskname.xml
 
@@ -44,5 +44,5 @@ echo "virsh detach-device --config $vmname $HOME/VMDisks/$diskname.xml"
 echo "The disk files can then be deleted. They can be found at $HOME/VMDisks/$diskname.xml and $HOME/VMDisks/$diskname.img"
 
 else 
-echo "VM is not powered off, run "virsh shutdown VMNAME" to power off the VM"
+echo "VM is not powered off, run "virsh destroy VMNAME" to power off the VM"
 fi
