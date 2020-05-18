@@ -60,8 +60,6 @@ disksizeclean=$(echo "$disksize" | sed 's/[^0-9]*//g')
 
 echo "Will create new disk of size $disksizeclean MBs"
 
-##Choose letter assignment for new disk drive in /dev/
-
 read -p "how should the disk be designated in /dev/? Only answer as you would expect to see in the directory /dev/* IE sda or vdb: " targetdev
 
 while [[ $targetdev != 'sd[a-z]|vd[a-z]' ]]; do
@@ -72,7 +70,7 @@ case "$targetdev" in
 esac
 done
 
-##Build and attach the disks
+#Build and attach the disks
 
 dd if=/dev/zero of=$HOME/VMDisks/$diskname.img bs=1M count=$disksizeclean
 
@@ -96,8 +94,6 @@ echo "virsh detach-device --config $vmname $HOME/VMDisks/$diskname.xml"
 echo "The disk files can then be deleted. They can be found at $HOME/VMDisks/$diskname.xml and $HOME/VMDisks/$diskname.img"
 
 else 
-
-##Future build will add prompt to ask user if they want to remove the created disk files or not
 
 echo "The command could not complete, check the VM name and try again.
 
