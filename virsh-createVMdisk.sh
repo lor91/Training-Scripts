@@ -6,7 +6,7 @@ if [[ -d "$HOME/VMDisks" ]]
 	then
     		echo "VMDisks directory exists on your filesystem, doing nothing."
 	else
-    		mkdir $HOME/VMDisks
+    		mkdir "$HOME"/VMDisks
     		echo "VMDisks directory created, this can be found under $HOME/VMDisks"
 fi
 
@@ -30,7 +30,7 @@ done
 
 read -p "Which VM are you creating a disk for? (case-sensitive) " vmname
 
-virsh list --all | grep -q $vmname
+virsh list --all | grep -q "$vmname"
 
 if [ "$?" = "1" ]; then
 	echo "That VM doesn't exist, please try again, remember the VMName is case-sensitive."
@@ -72,17 +72,17 @@ done
 
 #Build and attach the disks
 
-dd if=/dev/zero of=$HOME/VMDisks/$diskname.img bs=1M count=$disksizeclean
+dd if=/dev/zero of="$HOME"/VMDisks/"$diskname".img bs=1M count="$disksizeclean"
 
-touch $HOME/VMDisks/$diskname.xml
+touch $HOME/VMDisks/"$diskname".xml
 
 echo "<disk type='file' device='disk'> 
    <driver name='qemu' type='raw' cache='none'/> 
    <source file='$HOME/VMDisks/$diskname.img'/> 
    <target dev='$targetdev'/> 
-</disk>" >>  $HOME/VMDisks/$diskname.xml
+</disk>" >>  "$HOME"/VMDisks/$diskname.xml
 
-virsh attach-device --config $vmname $HOME/VMDisks/$diskname.xml
+virsh attach-device --config "$vmname" "$HOME"/VMDisks/"$diskname".xml
 
 fi
 
@@ -99,7 +99,7 @@ echo "The command could not complete, check the VM name and try again.
 
 Cleaning erroneous disk files..."
 
-rm -f $HOME/VMDisks/$diskname.xml
-rm -f $HOME/VMDisks/$diskname.img
+rm -f "$HOME"/VMDisks/"$diskname".xml
+rm -f "$HOME"/VMDisks/"$diskname".img
 
 fi
